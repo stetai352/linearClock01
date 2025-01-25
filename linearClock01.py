@@ -44,7 +44,7 @@ class OverlayWindow(QMainWindow):
         total_seconds = 24 * 3600
         secD = now.hour * 3600 + now.minute * 60 + now.second
         secH = now.minute * 60 + now.second
-        relD = 23/24 #secD / total_seconds
+        relD = secD / total_seconds
         relH = secH / 3600
 
         scW = QApplication.primaryScreen().availableGeometry().width()
