@@ -44,13 +44,12 @@ class OverlayWindow(QMainWindow):
         total_seconds = 24 * 3600
         secD = now.hour * 3600 + now.minute * 60 + now.second
         secH = now.minute * 60 + now.second
-        relD = secD / total_seconds
+        relD = 23/24 #secD / total_seconds
         relH = secH / 3600
 
         scW = QApplication.primaryScreen().availableGeometry().width()
         fullW = QApplication.primaryScreen().geometry().width()
         tbW = QApplication.primaryScreen().geometry().width() - scW
-        hour = int(scW / 24)
         tick_width = max(int(scW / 1000), 1)
         
         progD = int(relD * scW)
@@ -68,9 +67,10 @@ class OverlayWindow(QMainWindow):
 
         painter.setBrush(colour2)
         for i in range(1, 24):
-            painter.drawRect(tbW + i * hour, short+1, tick_width, short)
+            tickpos = tbW + int(i * scW / 24)
+            painter.drawRect(tickpos, short+1, tick_width, short)
             if (i % 6 == 0):
-                painter.drawRect(tbW + i * hour, 0, tick_width+1, 2*short)
+                painter.drawRect(tickpos, 0, tick_width+1, 2*short)
 
         painter.end()
         self.label.setPixmap(pixmap)
